@@ -1,0 +1,43 @@
+# set base image (host OS)
+
+# FROM node:bookworm-slim AS Builder
+# (or:)FROM node:bullseye-slim
+# (or:)
+# FROM node:alpine
+# (best:)
+# FROM node:lts-bullseye-slim
+# (latest:)
+FROM node:21-bullseye-slim
+# FROM node:lts-bullseye-slim
+
+# create the first builder:
+# ############################FROM Builder as Build1
+
+# (# install dependencies: nodejs
+# RUN apt-get update && \
+#  apt-get -y install nodejs)
+
+# COPY . .
+COPY package.json package-lock.json* ./
+RUN npm cache clear --force && npm install && \   
+    npm i dotenv
+
+# run in production:
+# RUN npm install --production
+
+# set the working directory in the container
+WORKDIR /data
+
+# create the first builder:
+# ###########################FROM Builder as Build2
+# create volume:
+VOLUME my-volume:/data
+
+# trying: enviroment development
+ENV PORT 4000
+
+# the command to start the applecation:
+CMD [ "node", "./index.js" ]
+
+# copy the content of the local src directory to the working directory
+COPY . .
