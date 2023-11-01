@@ -33,7 +33,7 @@ WORKDIR /data
 # create volume:
 VOLUME my-volume:/data
 
-# trying: enviroment development
+# trying: enviroment development and port to expose
 ENV PORT 4000
 
 # the command to start the applecation:
