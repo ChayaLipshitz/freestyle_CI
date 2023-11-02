@@ -19,8 +19,8 @@ FROM node:21-bullseye-slim
 
 # COPY . .
 COPY package.json package-lock.json* ./
-RUN npm cache clear --force && npm install && \   
-    npm i dotenv
+RUN npm cache clear --force && npm install && 
+RUN npm i dotenv
 
 # run in production:
 # RUN npm install --production
